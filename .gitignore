@@ -1,0 +1,26 @@
+# Terraform
+*.tfstate
+*.tfstate.*
+.crash
+.terraform/
+.terraform.lock.hcl
+
+# Ignore sensitive or build files
+*.log
+*.bak
+*.tmp
+*.sh
+
+# Ignore environment/config
+.env
+*.tfvars
+*.tfvars.json
+providers.tf
+
+# Ignore portfolio files (optional)
+portfoolio/
+
+# IDE & system
+.vscode/
+.idea/
+.DS_Store
