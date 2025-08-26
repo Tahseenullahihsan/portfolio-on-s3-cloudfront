@@ -15,7 +15,6 @@
 .env
 *.tfvars
 *.tfvars.json
-providers.tf
 
 # Ignore portfolio files (optional)
 
