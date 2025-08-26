@@ -9,7 +9,7 @@
 *.log
 *.bak
 *.tmp
-*.sh
+
 
 # Ignore environment/config
 .env
@@ -18,7 +18,7 @@
 providers.tf
 
 # Ignore portfolio files (optional)
-portfoolio/
+
 
 # IDE & system
 .vscode/
