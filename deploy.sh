@@ -10,7 +10,8 @@ TARGET_DIR="$WORKSPACE_DIR/portfoolio"
 TFVARS_FILE="$TFVARS"
 
 # Parse bucket name from .tfvars file
-BUCKET_NAME=$(grep 'bucket_name' "$TFVARS_FILE" | cut -d '=' -f2 | tr -d ' "')
+BUCKET_NAME=$(grep 'bucket_name' "$TFVARS_FILE" | cut -d '=' -f2 | tr -d ' "\r\n')
+
 
 if [ -z "$BUCKET_NAME" ]; then
     echo "❌ ERROR: Could not extract bucket name from $TFVARS_FILE"
