@@ -1,11 +1,29 @@
 #!/bin/bash
 
-# Variables
-BUCKET_NAME="my-project-data-backup-20250823-abcdef123"
-LOCAL_WEBSITE_DIR="/root/terraform_projects/project-2/portfoolio"  
+echo "🔍 Uploading website files to S3..."
 
-# Sync files to S3
-echo "Uploading website files to S3..."
-aws s3 sync "$LOCAL_WEBSITE_DIR" s3://$BUCKET_NAME --delete
-echo "✅ Upload complete."
-# file is succefuly uplaod to the s3 bucket
+# Set working directory (Jenkins workspace)
+WORKSPACE_DIR=$(pwd)
+TARGET_DIR="$WORKSPACE_DIR/portfoolio"
+
+# Load .tfvars file path from env (Jenkins injected secret file)
+TFVARS_FILE="$TFVARS"
+
+# Parse bucket name from .tfvars file
+BUCKET_NAME=$(grep 'bucket_name' "$TFVARS_FILE" | cut -d '=' -f2 | tr -d ' "')
+
+if [ -z "$BUCKET_NAME" ]; then
+    echo "❌ ERROR: Could not extract bucket name from $TFVARS_FILE"
+    exit 1
+fi
+
+# Confirm directory exists
+if [ ! -d "$TARGET_DIR" ]; then
+    echo "❌ ERROR: The folder $TARGET_DIR does not exist."
+    exit 1
+fi
+
+# Upload to S3
+aws s3 cp "$TARGET_DIR" "s3://$BUCKET_NAME/" --recursive
+
+echo "✅ Upload complete to bucket: $BUCKET_NAME"
