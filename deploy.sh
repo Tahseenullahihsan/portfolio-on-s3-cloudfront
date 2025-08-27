@@ -29,4 +29,6 @@ aws s3 cp "$TARGET_DIR" "s3://$BUCKET_NAME/" --recursive
 
 echo "✅ Upload complete to bucket: $BUCKET_NAME"
 # this is hte deploy .sh file fr hte ci/cd dinamically 
+
+#the jenkins file ahs been updated
 #EOF
